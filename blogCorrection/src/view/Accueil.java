@@ -1,99 +1,63 @@
 package view;
 
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.util.Iterator;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.Color;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import controller.ArticleDao;
 import model.Article;
+
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+
 import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 
-public class Accueil extends JFrame {
-
-	private JPanel contentPane;
+public class Accueil extends JPanel {
 	private JTable table;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Accueil frame = new Accueil();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
+	 * Create the panel.
 	 */
 	public Accueil() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 850, 522);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setLayout(null);
+		setBounds(10, 112, 816, 362);
 		
-		JPanel header = new JPanel();
-		header.setBounds(10, 28, 816, 73);
-		contentPane.add(header);
-		header.setLayout(null);
+		JPanel Accueil = new JPanel();
+		Accueil.setBounds(0, 0, 816, 362);
+		add(Accueil);
+		Accueil.setLayout(null);
 		
-		JLabel titreHeader = new JLabel("SPEAR : Blog d'actualités");
-		titreHeader.setFont(new Font("Tahoma", Font.ITALIC, 25));
-		titreHeader.setHorizontalAlignment(SwingConstants.CENTER);
-		titreHeader.setBounds(206, 24, 384, 38);
-		header.add(titreHeader);
+		JPanel listing = new JPanel();
+		listing.setBounds(10, 59, 781, 292);
+		Accueil.add(listing);
+		listing.setLayout(null);
 		
-		JPanel body = new JPanel();
-		body.setBounds(10, 112, 816, 362);
-		contentPane.add(body);
-		body.setLayout(null);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(29, 74, 724, 218);
+		listing.add(scrollPane);
+		
 		
 		JButton btnInscrCo = new JButton("Se connecter / S'inscrire");
 		btnInscrCo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				body.removeAll();
-				body.add(new InscriptionConnection());
+				Accueil.removeAll();
+				Accueil.add(new InscriptConnect());
 				
-				body.repaint();
-				body.revalidate();
+				Accueil.repaint();
+				Accueil.revalidate();
 			}
 		});
 		btnInscrCo.setBackground(Color.RED);
 		btnInscrCo.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnInscrCo.setBounds(632, 11, 174, 32);
-		body.add(btnInscrCo);
-		
-		JPanel listing = new JPanel();
-		listing.setBounds(10, 59, 781, 229);
-		body.add(listing);
-		listing.setLayout(null);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(28, 11, 724, 218);
-		listing.add(scrollPane);
-		
+		btnInscrCo.setBounds(580, 21, 173, 42);
+		listing.add(btnInscrCo);
+
 		table = new JTable();
 		table.setModel(liste());
 		
@@ -103,8 +67,8 @@ public class Accueil extends JFrame {
 			isEmpty1.setHorizontalAlignment(SwingConstants.CENTER);
 			isEmpty1.setFont(new Font("Tahoma", Font.BOLD, 20));
 			isEmpty2.setIcon(new ImageIcon("C:\\Users\\bourg\\OneDrive\\Bureau\\WorkspaceJAVA\\blogCorrection\\src\\ressources\\homer.jfif"));
-			isEmpty1.setBounds(210, 10, 500, 100);
-			isEmpty2.setBounds(250, 150, 500, 100);
+			isEmpty1.setBounds(60, 10, 500, 100);
+			isEmpty2.setBounds(160, 100, 500, 170);
 			listing.add(isEmpty1);
 			listing.add(isEmpty2);
 			isEmpty1.setVisible(true);
@@ -118,9 +82,9 @@ public class Accueil extends JFrame {
 		}
 		
 		scrollPane.setViewportView(table);
-		
 	}
-	ArticleDao articleDao = new ArticleDao();
+	
+ArticleDao articleDao = new ArticleDao();
 	
 	//METHODE SUPP
 	public DefaultTableModel liste() {
